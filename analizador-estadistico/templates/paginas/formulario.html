@@ -1,0 +1,253 @@
+{% extends "plantilla.html" %}
+
+{% block titulo %} Realiza tu solicitud {% endblock %}
+{% block contenido %}
+
+<div class="p-5 bg-ligth" style="display: block;" id="dvSolicitud">
+  <div class="container">
+    <h1 class="display-3">Solicitar créditos</h1>
+    <p class="lead">Puedes solicitar los siguientes créditos en nuestra página web, el trámite es seguro y
+      confiable. Elige el que más te interese.</p>
+    <hr class="my-2">
+
+    <div class="card card-interna">
+      <div class="card-option bg-success text-white p-1">
+        <a class="btn col-12" onclick="mostrar_campos()" role="button">Empezar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form enctype="multipart/form-data" method="post" onsubmit="return validarFormulario()"
+  action="{% url 'consultar_solicitud' %}">
+  {% csrf_token %}
+  <br><br><br><br>
+  <div class="container bg-light" style="display: none;" id="dvDataAut">
+    <div class="row">
+      <div class="form-group col-6">
+        <label for="OptExampleSelect">Tipo de documento de identidad:</label>
+        <select class="form-control campo-requerido1" id="OptExampleSelect" nombre="OptExampleSelect">
+          <option>CC</option>
+        </select>
+      </div>
+      <div class="mb-3 col-6">
+        <label for="txtNumeroDocumento" class="form-label">Número de documento</label>
+        <input type="number" class="form-control campo-requerido1" name="txtNumeroDocumento" id="txtNumeroDocumento"
+          aria-describedby="helpId" placeholder="Número de documento">
+      </div>
+    </div>
+    <div class="row">
+      <div class="mb-3 col-6">
+        <label for="txtNombre" class="form-label">Nombre</label>
+        <input type="tex" class="form-control campo-requerido1" name="txtNombre" id="txtNombre"
+          aria-describedby="helpId" placeholder="Nombre">
+      </div>
+      <div class="mb-3 col-6">
+        <label for="txtEmail" class="form-label">Correo electrónico</label>
+        <input type="text" class="form-control campo-requerido1" name="txtEmail" id="txtEmail"
+          aria-describedby="helpId" placeholder="Correo electrónico">
+      </div>
+    </div>
+  </div>
+  <div class="p-5 bg-ligth" style="display: none;" id="dvConfirmDataAut">
+    <div class="container">
+      <input class="form-check-input" type="checkbox" value="chkAutorizacion" id="chkAutorizacion">
+      Autorizo a la entidad bancaria para que el número de celular y el correo electrónico, sean tratados para
+      contactarme y/o enviarme la información relacionada con la solicitud del producto. Igualmente para que me
+      consulten ante Operadores de Información y Riesgo con el fin de verificar mi información personal.
+    </div>
+  </div>
+  <div class="card card-interna" style="display: none;" id="dvBtnDataAut">
+    <div class="card-option bg-success text-white p-1">
+      <a class="btn col-12" onclick="mostrar_siguiente_informacion()" role="button">Continuar</a>
+    </div>
+  </div>
+  <div class="container mt-4" style="display: none;" id="dvDataForm">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Formulario de Solicitud</h5>
+      </div>
+      <div class="card-body">
+
+        <div class="form-group">
+          <label for="txtFechaNacimiento">Fecha de nacimiento:</label>
+          <input type="date" class="form-control campo-requerido2" id="txtFechaNacimiento" name="txtFechaNacimiento">
+        </div>
+
+        <div class="mb-3 row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="optGenero">Género:</label>
+              <select class="form-control campo-requerido2" id="optGenero" name="optGenero">
+                <option value="1">Masculino</option>
+                <option value="2">Femenino</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="txtCiudadRecidencia campo-requerido2">Ciudad de residencia:</label>
+          <input type="text" class="form-control" id="txtCiudadRecidencia" name="txtCiudadRecidencia">
+        </div>
+
+        <div class="mb-3 row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="txtNumeroPrestamo campo-requerido2">Número prestamos recibidos</label>
+              <input type="number" class="form-control" id="txtNumeroPrestamo" name="txtNumeroPrestamo">
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-group">
+              <label for="txtSaldoCredito">¿Cuál es el saldo total de sus creditos?</label>
+              <input type="number" class="form-control campo-requerido2" id="txtSaldoCredito" name="txtSaldoCredito">
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="txtSaldoAhorro">¿Cuánto recuerda haber ahorrado?</label>
+              <input type="number" class="form-control campo-requerido2" id="txtSaldoAhorro" name="txtSaldoAhorro">
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-group">
+              <label for="txtFechaInicioEmpresa">Fecha de inicio en su empresa</label>
+              <input type="date" class="form-control campo-requerido2" id="txtFechaInicioEmpresa"
+                name="txtFechaInicioEmpresa">
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="txtIntegrantesHogar">Número de integrantes del hogar</label>
+              <input type="number" class="form-control campo-requerido2" id="txtIntegrantesHogar"
+                name="txtIntegrantesHogar">
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-group">
+              <label for="txtDiasMora">Si tienes días en mora indicanos para ayudarte!</label>
+              <input type="number" class="form-control campo-requerido2" id="txtDiasMora" name="txtDiasMora">
+            </div>
+          </div>
+        </div>
+
+        <hr class="my-2">
+        <div class="card card-interna">
+          <div class="card-option bg-success text-white p-1">
+            <button class="btn col-12 bg-success" type="submit">Consultar</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>
+<div class="top-right"></div>
+<div class="bottom-left"></div>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .top-right {
+    position: absolute;
+    bottom: 80%;
+    left: 100%;
+    background-color: #59cbe8;
+    color: white;
+    padding: 20%;
+    transform: rotate(45deg);
+    transform-origin: 0 0%;
+    clip-path: polygon(0 15%, 100% 0, 100% 85%, 0 100%);
+  }
+
+  .bottom-left {
+    position: absolute;
+
+    top: 50%;
+    right: 60%;
+    background-color: #fdda24;
+    /* Cambia el color de fondo si lo deseas */
+    color: white;
+    padding: 20%;
+    transform: rotate(45deg);
+    transform-origin: 0 0%;
+    clip-path: polygon(0 15%, 100% 0, 100% 85%, 0 100%);
+  }
+</style>
+<script>
+  function mostrar_campos() {
+    var elemento = document.getElementById("dvDataAut");
+    elemento.style.display = "block";
+    var elemento = document.getElementById("dvConfirmDataAut");
+    elemento.style.display = "block";
+    var elemento = document.getElementById("dvBtnDataAut");
+    elemento.style.display = "block";
+    var elemento = document.getElementById("dvSolicitud");
+    elemento.style.display = "none";
+  }
+  function mostrar_siguiente_informacion() {
+
+    var checkBox = document.getElementById("chkAutorizacion");
+
+    if (checkBox.checked == true) {
+      var valida = true;
+      var camposRequeridos = document.querySelectorAll(".campo-requerido1");
+
+      for (var i = 0; i < camposRequeridos.length; i++) {
+        if (camposRequeridos[i].value.trim() === "") {
+          var valida = false;
+
+        }
+      }
+      if (valida) {
+        var elemento = document.getElementById("dvDataAut");
+        elemento.style.display = "none";
+        var elemento = document.getElementById("dvConfirmDataAut");
+        elemento.style.display = "none";
+        var elemento = document.getElementById("dvBtnDataAut");
+        elemento.style.display = "none";
+        var elemento = document.getElementById("dvDataForm");
+        elemento.style.display = "block";
+      } else {
+        swal("Oops!", "Por favor, complete todos los campos!", "error");
+      }
+    } else {
+      swal("Oops!", "Necesitamos que nos autorices el tratamiento de datos para poder utilizar nuestro software!", "error");
+    }
+  }
+  function validarFormulario() {
+    var valida = true;
+    var camposRequeridos = document.querySelectorAll(".campo-requerido2");
+
+    for (var i = 0; i < camposRequeridos.length; i++) {
+      if (camposRequeridos[i].value.trim() === "") {
+        var valida = false;
+      }
+    }
+    if (valida) {
+      return true;
+    } else {
+      swal("Oops!", "Por favor, complete todos los campos!", "error");
+      return false;
+    }
+  }
+  window.addEventListener('scroll', function () {
+    window.scrollTo(0, 0);
+  });
+
+</script>
+
+{% endblock %}

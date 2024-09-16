@@ -1,0 +1,65 @@
+{% extends "plantilla.html" %}
+
+{% block titulo %} Consulta Registros {% endblock %}
+{% block contenido %}
+<div class="p-5 bg-ligth">
+    <div class="container">
+        <h1 class="display-3">Consulta tus clientes</h1>
+
+        <hr class="my-2">
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-borderless table-primary align-middle" style="font-size: 14px;">
+        <thead class="table-light">
+            <caption>Table Name</caption>
+            <tr>
+                <th>Nro</th>
+                <th>Cliente</th>
+                <th>Genero</th>
+                <th>Edad</th>
+                <th>Cod. Ciudad</th>
+                <th>Ciudad</th>
+
+                <th>Nro Prestamos Recibidos</th>
+                <th>Endeudamiento</th>
+                <th>Saldo Credito</th>
+                <th>Saldo Ahorros</th>
+                <th>Saldo Cdt</th>
+                <th>Excedentes Negocio</th>
+                <th>Antiguedad LAboral</th>
+                <th>Integrantes Hogar</th>
+                <th>Dias Mora</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for Data in DataBanco %}
+
+            <tr class="table-primary">
+                <td scope="row">{{Data.id}}</td>
+                <td>{{Data.id_cliente}}</td>
+                <td>{{Data.genero}}</td>
+                <td>{{Data.edad_anios}}</td>
+                <td>{{Data.codigo_ciudad_residencia}}</td>
+                <td>{{Data.nombre_ciudad_residencia}}</td>
+
+                <td>{{Data.nro_prestamos_recibidos}}</td>
+                <td>{{Data.endeudamiento_sistema_financiero}}</td>
+                <td>{{Data.saldo_creditos}}</td>
+                <td>{{Data.saldo_ahorro}}</td>
+                <td>{{Data.saldo_cdt}}</td>
+                <td>{{Data.excedentes_negocio}}</td>
+                <td>{{Data.antiguedad_laboral_anios}}</td>
+                <td>{{Data.integrantes_hogar}}</td>
+                <td>{{Data.dias_mora_credito}}</td>
+            </tr>
+
+            {% endfor%}
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>
+
+{% endblock %}
